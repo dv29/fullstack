@@ -1,0 +1,16 @@
+{
+  "name": "service2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bazel/bazelisk": "^1.5.0",
+    "@bazel/buildifier": "^3.2.0",
+    "@bazel/ibazel": "^0.13.1"
+  }
+}

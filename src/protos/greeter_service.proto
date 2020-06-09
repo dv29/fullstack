@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package greeterservice;
+import "src/protos/person.proto";
+
+service Greeter {
+  rpc SayHello (Person) returns (Greetings);
+}
+
+/* message Person { */
+/*   string name = 1; */
+/* } */
+
+message Greetings {
+  string message = 1;
+}
