@@ -1,6 +1,9 @@
 workspace(
     name = "temp",
-    managed_directories = {"@npm": ["src/backend/service2/node_modules"]},
+    managed_directories = {
+        "@npm": ["node_modules"],
+        "@service2_deps": ["src/backend/service2/node_modules"],
+    },
 )
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -92,12 +95,22 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/1.7.0/rules_nodejs-1.7.0.tar.gz"],
 )
 
-load("@build_bazel_rules_nodejs//:index.bzl", "npm_install")
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
 
-npm_install(
+node_repositories(package_json = ["//:package.json", "//src/backend/service2:package.json"])
+
+yarn_install(
     name = "npm",
+    package_json = "//:package.json",
+    # package_lock_json = "//:package-lock.json",
+    yarn_lock = "//:yarn.lock"
+)
+
+yarn_install(
+    name = "service2_deps",
     package_json = "//src/backend/service2:package.json",
-    package_lock_json = "//src/backend/service2:package-lock.json",
+    # package_lock_json = "//src/backend/service2:package-lock.json",
+    yarn_lock = "//src/backend/service2:yarn.lock"
 )
 
 load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")

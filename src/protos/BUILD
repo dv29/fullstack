@@ -2,6 +2,12 @@ load("@rules_cc//cc:defs.bzl", "cc_proto_library")
 load("@com_github_grpc_grpc//bazel:cc_grpc_library.bzl", "cc_grpc_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 
+filegroup(
+    name = "protos_js",
+    srcs = glob([ "*.proto"]),
+    visibility = ["//src:__subpackages__"],
+)
+
 # Person
 proto_library(
     name = "person_proto",
