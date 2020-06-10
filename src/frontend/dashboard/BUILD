@@ -1,6 +1,6 @@
-load("@npm//http-server:index.bzl", "http_server")
-load("@npm//sass:index.bzl", "sass")
-load("@npm//webpack-cli:index.bzl", webpack = "webpack_cli")
+load("@dashboard_deps//http-server:index.bzl", "http_server")
+load("@dashboard_deps//sass:index.bzl", "sass")
+load("@dashboard_deps//webpack-cli:index.bzl", webpack = "webpack_cli")
 load("@npm_bazel_typescript//:index.bzl", "ts_project")
 
 sass(
@@ -15,8 +15,8 @@ sass(
 
 ts_project(
     deps = [
-        "@npm//@types",
-        "@npm//csstype",
+        "@dashboard_deps//@types",
+        "@dashboard_deps//csstype",
     ],
 )
 
@@ -33,9 +33,9 @@ webpack(
     data = [
         "index.js",
         "styles.css",
+        "name.js",
         "webpack.config.js",
-        "@dashboard_deps//react",
-        "@dashboard_deps//react-dom",
+        "@dashboard_deps//:node_modules",
     ],
 )
 
@@ -46,5 +46,5 @@ http_server(
         "app.bundle.js",
         "index.html",
     ],
-    templated_args = ["."],
+    templated_args = [".", "-p 8888"],
 )

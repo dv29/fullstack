@@ -18,6 +18,10 @@
         "webpack-cli": "^3.3.11",
         "webpack-dev-server": "^3.11.0"
     },
+    "dependencies": {
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1"
+    },
     "scripts": {
         "build": "bazel build //...",
         "test": "bazel test //..."
