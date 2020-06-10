@@ -18,7 +18,8 @@ format:
 
 clean:
 	$(BAZEL) clean --expunge
-	${RM} bazel-* dist
+	${RM} bazel-* */node_modules/* dist
+	find . -name "node_modules" -type d -prune -exec rm -rf '{}' + 
 
 purge: clean
 	${RM} .build/ `find . -type d -name node_modules` `find . -type f -name yarn-error.log`

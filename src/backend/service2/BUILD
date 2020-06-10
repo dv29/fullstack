@@ -7,7 +7,7 @@ nodejs_binary(
         # "//src/protos:greeter_service.proto",
         "//src/protos:protos_js",
         "@service2_deps//grpc",
-        "@service2_deps//@grpc/proto-loader"
+        "@service2_deps//@grpc/proto-loader",
     ],
     entry_point = ":index.js",
 )

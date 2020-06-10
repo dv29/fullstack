@@ -3,6 +3,7 @@ workspace(
     managed_directories = {
         "@npm": ["node_modules"],
         "@service2_deps": ["src/backend/service2/node_modules"],
+        "@dashboard_deps": ["src/frontend/dashboard/node_modules"],
     },
 )
 
@@ -97,23 +98,35 @@ http_archive(
 
 load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
 
-node_repositories(package_json = ["//:package.json", "//src/backend/service2:package.json"])
+node_repositories(package_json = [
+    "//:package.json",
+    "//src/backend/service2:package.json",
+    "//src/frontend/dashboard:package.json",
+])
 
 yarn_install(
     name = "npm",
     package_json = "//:package.json",
-    # package_lock_json = "//:package-lock.json",
-    yarn_lock = "//:yarn.lock"
+    yarn_lock = "//:yarn.lock",
 )
 
 yarn_install(
     name = "service2_deps",
     package_json = "//src/backend/service2:package.json",
-    # package_lock_json = "//src/backend/service2:package-lock.json",
-    yarn_lock = "//src/backend/service2:yarn.lock"
+    yarn_lock = "//src/backend/service2:yarn.lock",
+)
+
+yarn_install(
+    name = "dashboard_deps",
+    package_json = "//src/frontend/dashboard:package.json",
+    yarn_lock = "//src/frontend/dashboard:yarn.lock",
 )
 
 load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
 
 install_bazel_dependencies()
+
+load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
+
+ts_setup_workspace()
 # End  // Javascript

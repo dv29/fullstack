@@ -4,7 +4,7 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 
 filegroup(
     name = "protos_js",
-    srcs = glob([ "*.proto"]),
+    srcs = glob(["*.proto"]),
     visibility = ["//src:__subpackages__"],
 )
 
