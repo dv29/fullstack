@@ -1,6 +1,6 @@
-load("@dashboard_deps//http-server:index.bzl", "http_server")
-load("@dashboard_deps//sass:index.bzl", "sass")
-load("@dashboard_deps//webpack-cli:index.bzl", webpack = "webpack_cli")
+load("@site_deps//http-server:index.bzl", "http_server")
+load("@site_deps//sass:index.bzl", "sass")
+load("@site_deps//webpack-cli:index.bzl", webpack = "webpack_cli")
 load("@npm_bazel_typescript//:index.bzl", "ts_project")
 
 sass(
@@ -14,9 +14,9 @@ sass(
 )
 
 ts_project(
-    tsc = "@dashboard_deps//typescript/bin:tsc",
+    tsc = "@site_deps//typescript/bin:tsc",
     deps = [
-        "@dashboard_deps//:node_modules",
+        "@site_deps//:node_modules",
     ],
 )
 
@@ -35,7 +35,7 @@ webpack(
         "name.js",
         "styles.css",
         "webpack.config.js",
-        "@dashboard_deps//:node_modules",
+        "@site_deps//:node_modules",
     ],
 )
 
