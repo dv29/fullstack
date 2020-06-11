@@ -7,7 +7,7 @@ sass(
     name = "styles",
     outs = ["styles.css"],
     args = [
-        "$(execpath styles.scss)",
+        "$(execpath //src/frontend/dashboard/src:styles.scss)",
         "$(execpath styles.css)",
     ],
     data = ["styles.scss"],
@@ -24,15 +24,14 @@ webpack(
     name = "bundle",
     outs = ["app.bundle.js"],
     args = [
-        "$(execpath index.js)",
+        "$(execpath src/index.js)",
         "--config",
         "$(execpath webpack.config.js)",
         "-o",
         "$@",
     ],
     data = [
-        "index.js",
-        "name.js",
+        "src/index.js",
         "styles.css",
         "webpack.config.js",
         "@dashboard_deps//:node_modules",
@@ -43,8 +42,8 @@ webpack(
 http_server(
     name = "server",
     data = [
-        "app.bundle.js",
-        "index.html",
+        "src/app.bundle.js",
+        "src/index.html",
     ],
     templated_args = [
         ".",
