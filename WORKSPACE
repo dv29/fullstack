@@ -1,5 +1,5 @@
 workspace(
-    name = "temp",
+    name = "fullstack",
     managed_directories = {
         "@npm": ["node_modules"],
         "@service2_deps": ["src/backend/service2/node_modules"],

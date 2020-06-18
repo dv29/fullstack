@@ -15,41 +15,43 @@ sass(
 
 ts_project(
     srcs = glob([
+        "*.ts",
         "src/**/*.tsx",
     ]),
+    # args = ["--traceResolution"],
     tsc = "@dashboard_deps//typescript/bin:tsc",
     deps = [
         "@dashboard_deps//:node_modules",
     ],
 )
 
-# webpack(
-#     name = "bundle",
-#     outs = ["app.bundle.js"],
-#     args = [
-#         "$(execpath //src/frontend/dashboard/src:index.js)",
-#         "--config",
-#         "$(execpath webpack.config.js)",
-#         "-o",
-#         "$@",
-#     ],
-#     data = [
-#         "//src/frontend/dashboard/src:index.js",
-#         "//src/frontend/dashboard/src:styles.css",
-#         "webpack.config.js",
-#         "@dashboard_deps//:node_modules",
-#     ],
-# )
+webpack(
+    name = "bundle",
+    outs = ["public/app.bundle.js"],
+    args = [
+        "$(execpath //src/frontend/dashboard:src/index.js)",
+        "--config",
+        "$(execpath webpack.config.js)",
+        "-o",
+        "$@",
+    ],
+    data = [
+        "src/index.js",
+        "src/styles.css",
+        "webpack.config.js",
+        "@dashboard_deps//:node_modules",
+    ],
+)
 
 # Note, on Windows you need `--enable_runfiles`
-# http_server(
-#     name = "server",
-#     data = [
-#         "src/app.bundle.js",
-#         "src/index.html",
-#     ],
-#     templated_args = [
-#         ".",
-#         "-p 8888",
-#     ],
-# )
+http_server(
+    name = "server",
+    data = [
+        "public/app.bundle.js",
+        "public/index.html",
+    ],
+    templated_args = [
+        "./src/frontend/dashboard/public/",
+        "-p 8888",
+    ],
+)
