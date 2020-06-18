@@ -5,35 +5,39 @@ load("@npm_bazel_typescript//:index.bzl", "ts_project")
 
 sass(
     name = "styles",
-    outs = ["styles.css"],
+    outs = ["src/styles.css"],
     args = [
-        "$(execpath styles.scss)",
-        "$(execpath styles.css)",
+        "$(execpath //src/frontend/dashboard:src/styles.scss)",
+        "$(execpath //src/frontend/dashboard:src/styles.css)",
     ],
-    data = ["styles.scss"],
+    data = ["//src/frontend/dashboard:src/styles.scss"],
 )
 
 ts_project(
+    srcs = glob([
+        "*.ts",
+        "src/**/*.tsx",
+    ]),
+    # args = ["--traceResolution"],
+    tsc = "@dashboard_deps//typescript/bin:tsc",
     deps = [
-        "@dashboard_deps//@types",
-        "@dashboard_deps//csstype",
+        "@dashboard_deps//:node_modules",
     ],
 )
 
 webpack(
     name = "bundle",
-    outs = ["app.bundle.js"],
+    outs = ["public/app.bundle.js"],
     args = [
-        "$(execpath index.js)",
+        "$(execpath //src/frontend/dashboard:src/index.js)",
         "--config",
         "$(execpath webpack.config.js)",
         "-o",
         "$@",
     ],
     data = [
-        "index.js",
-        "styles.css",
-        "name.js",
+        "src/index.js",
+        "src/styles.css",
         "webpack.config.js",
         "@dashboard_deps//:node_modules",
     ],
@@ -43,8 +47,11 @@ webpack(
 http_server(
     name = "server",
     data = [
-        "app.bundle.js",
-        "index.html",
+        "public/app.bundle.js",
+        "public/index.html",
     ],
-    templated_args = [".", "-p 8888"],
+    templated_args = [
+        "./src/frontend/dashboard/public/",
+        "-p 8888",
+    ],
 )
