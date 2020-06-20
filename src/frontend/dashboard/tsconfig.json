@@ -3,6 +3,7 @@
         "jsx": "react",
         "lib": ["ES2015", "DOM"],
         "rootDirs": ["."],
-        "types": []
+        "types": [],
+        "traceResolution": true
     }
 }

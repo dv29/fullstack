@@ -1,9 +1,9 @@
-// import * as React from "react";
-// import * as ReactDOM from "react-dom";
-// import * as grpcWeb from 'grpc-web';
-// import * as styles from "./styles.css";
-// import { Person } from "../../../protos/person_pb";
-// import { GreeterPromiseClient } from "../../../protos/greeter_service_grpc_web_pb";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as grpcWeb from 'grpc-web';
+import * as styles from "./styles.css";
+import { Person } from "../../../protos/person_pb";
+import { GreeterPromiseClient } from "../../../protos/greeter_service_grpc_web_pb";
 
 const el: HTMLDivElement = document.createElement('div');
 el.innerText = "hello world";

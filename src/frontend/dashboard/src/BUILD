@@ -28,8 +28,6 @@ ts_library(
     # compiler = "@dashboard_deps//@bazel/typescript/internal/tsc_wrapped:tsc_wrapped --traceResolution",
     tsconfig = "//src/frontend/dashboard:tsconfig",
     visibility = ["//src:__subpackages__"],
-    # args = ["--traceResolution"],
-    # data = [":styles"],
     deps = [
         "//src/protos:greeter_service_ts_grpc",
         "//src/protos:person_ts_proto",

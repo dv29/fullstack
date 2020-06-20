@@ -45,10 +45,11 @@ ts_devserver(
     # entry_module = "src/frontend/dashboard/src/index",
     port = 8081,
     scripts = ["@npm_bazel_labs//grpc_web:bootstrap_scripts"],
-    # static_files = ["public/index.html"],
+    static_files = ["public/index.html"],
     # visibility = ["//src:__subpackages__"],
     deps = [
         "//src/frontend/dashboard/src:index",
+        ":types"
     ],
 )
 
