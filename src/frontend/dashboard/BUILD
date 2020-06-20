@@ -1,7 +1,7 @@
 load("@dashboard_deps//http-server:index.bzl", "http_server")
 load("@dashboard_deps//sass:index.bzl", "sass")
 load("@dashboard_deps//webpack-cli:index.bzl", webpack = "webpack_cli")
-load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_devserver", "ts_project")
+load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_devserver", "ts_project", "ts_library")
 load("@npm_bazel_labs//:index.bzl", "ts_proto_library")
 
 package(default_visibility = ["//src:__subpackages__"])
@@ -20,6 +20,17 @@ package(default_visibility = ["//src:__subpackages__"])
 #     name = "tsconfig.json",
 #     actual = ":tsconfig.json",
 # )
+ts_library(
+    name = "types",
+    srcs = glob([
+        "*.ts",
+        "*.tsx",
+    ]),
+    node_modules = "@dashboard_deps//:node_modules",
+    tsconfig = "//src/frontend/dashboard:tsconfig",
+    visibility = ["//src:__subpackages__"],
+    # args = ["--traceResolution"],
+)
 
 ts_config(
     name = "tsconfig",
