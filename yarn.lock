@@ -8,14 +8,19 @@
   integrity sha512-qhOGN1WmfZYNJXGrRL/0byii9hX5FBomMv3WWI2OEL2+Bxm4t/bR3zMxN3xwQX1C8meSSrAfKGSzxVOZfpJsOg==
 
 "@bazel/buildifier@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@bazel/buildifier/-/buildifier-3.2.0.tgz#5dbb32e1592a27eac52c74d0f8c8206e1a045240"
-  integrity sha512-gdqRnPClkwZw7YLv9Xc6XLovTtrUB6XFuu6Jo1T7gXn1AB7I09KlCgfJgKRJRMskrVDx3UVZaFK06ztGjyHnWw==
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@bazel/buildifier/-/buildifier-3.2.1.tgz#5f0176b11f159d72d05d3bae6047a038a778fb8e"
+  integrity sha512-rMN3OA3QYUwVj0LaN1Krc9sU46sRVV+S2aybEdtX3n9JGc0H8hxRl1DIurB6ELAFidFZBbNW3cR32p51cYuMHw==
 
 "@bazel/ibazel@^0.13.1":
   version "0.13.1"
   resolved "https://registry.yarnpkg.com/@bazel/ibazel/-/ibazel-0.13.1.tgz#23788f67a6fbe83d96f2d055691df4917c10ac8d"
   integrity sha512-FO1hBKpzpeBL0adnFYF2Dwl/7gox6ccKM6bb+x26AXrQpLbinXPuTi4zeXRL/MW4383mF6i4RovLCmwUU/YW0w==
+
+"@bazel/labs@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@bazel/labs/-/labs-1.7.0.tgz#9e627e579073ec14fca85e35493c17493684a221"
+  integrity sha512-xAGPHB6rbCnmjIHEhPA1a34AbsXpQPrJr1edrSmcWJjDFSA7PJZBv/YEYW0dC9Zm+VjIhX76Vw93mplxDlBQXg==
 
 "@bazel/typescript@^1.7.0":
   version "1.7.0"
@@ -94,6 +99,16 @@ buffer-from@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
+
+google-protobuf@^3.12.2:
+  version "3.12.2"
+  resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.12.2.tgz#50ce9f9b6281235724eb243d6a83e969a2176e53"
+  integrity sha512-4CZhpuRr1d6HjlyrxoXoocoGFnRYgKULgMtikMddA9ztRyYR59Aondv2FioyxWVamRo0rF2XpYawkTCBEQOSkA==
+
+grpc-web@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/grpc-web/-/grpc-web-1.1.0.tgz#18f73583a0a8c0b6c44a5cba62e66376d0ad019e"
+  integrity sha512-oPoS4/E/EO0TA2ZOSf3AxV2AbWDeabwfbAo+8oXNenOw87RmKz4hME8Sy4KDu2dUnqK8cuGfzdQlJPAEQEygNQ==
 
 long@^4.0.0:
   version "4.0.0"

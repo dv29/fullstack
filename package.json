@@ -6,9 +6,10 @@
         "@bazel/bazelisk": "^1.5.0",
         "@bazel/buildifier": "^3.2.0",
         "@bazel/ibazel": "^0.13.1",
-        "@bazel/typescript": "^1.7.0"
-    },
-    "dependencies": {
+        "@bazel/typescript": "^1.7.0",
+        "@bazel/labs": "^1.7.0",
+        "google-protobuf": "^3.12.2",
+        "grpc-web": "^1.1.0",
         "typescript": "^3.9.5"
     }
 }
