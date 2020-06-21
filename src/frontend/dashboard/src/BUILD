@@ -1,4 +1,3 @@
-load("@dashboard_deps//sass:index.bzl", "sass")
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 
@@ -8,16 +7,6 @@ sass_binary(
     name = "styles",
     src = "styles.scss",
 )
-
-# sass(
-#     name = "styles",
-#     outs = ["styles.css"],
-#     args = [
-#         "$(execpath styles.scss)",
-#         "$(execpath styles.css)",
-#     ],
-#     data = ["styles.scss"],
-# )
 
 ts_library(
     name = "index",
@@ -29,11 +18,13 @@ ts_library(
     tsconfig = "//src/frontend/dashboard:tsconfig",
     visibility = ["//src:__subpackages__"],
     deps = [
+        "//src/frontend/dashboard:types",
         "//src/protos:greeter_service_ts_grpc",
         "//src/protos:person_ts_proto",
-        "//src/frontend/dashboard:types",
         "@dashboard_deps//@types",
+        "@dashboard_deps//google-protobuf",
         "@dashboard_deps//grpc-web",
         "@dashboard_deps//react",
+        "@dashboard_deps//react-dom",
     ],
 )
