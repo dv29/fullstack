@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "jsx": "react",
-        "rootDirs": ["."],
-        "types": []
+        "lib": ["ES2015", "DOM"],
+        "esModuleInterop": true
     }
 }

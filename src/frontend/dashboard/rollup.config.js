@@ -1,9 +1,13 @@
-const commonjs = require('rollup-plugin-commonjs');
-const nodeRequire = require('rollup-plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const replace = require('@rollup/plugin-replace');
 
 module.exports = {
   plugins: [
-    nodeRequire(),
+    nodeResolve(),
     commonjs(),
+    replace({
+      'process.env.NODE_ENV': JSON.stringify('development'),
+    }),
   ],
 };

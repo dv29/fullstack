@@ -45,25 +45,20 @@ ts_config(
 #     ],
 # )
 
-# rollup_bundle(
-#     name = "bundle",
-#     config_file = "rollup.config.js",
-#     # output_dir = True,
-#     entry_point = "//src/frontend/dashboard/src:index.tsx",
-#     rollup_bin = "@dashboard_deps//rollup/bin:rollup",
-#     # args = ["--output.dir","public"] ,
-#     format = "cjs",
-#     deps = [
-#         "//src/frontend/dashboard/src:index",
-#         "@dashboard_deps//@types",
-#         "@dashboard_deps//grpc-web",
-#         "@dashboard_deps//:node_modules",
-#         # "@dashboard_deps//react",
-#         # "@dashboard_deps//react-dom",
-#         "@dashboard_deps//rollup-plugin-commonjs",
-#         "@dashboard_deps//rollup-plugin-node-resolve",
-#     ],
-# )
+rollup_bundle(
+    name = "bundle",
+    config_file = "rollup.config.js",
+    entry_point = "//src/frontend/dashboard/src:index.tsx",
+    format = "cjs",
+    rollup_bin = "@dashboard_deps//rollup/bin:rollup",
+    deps = [
+        "//src/frontend/dashboard/src:index",
+        "//src/frontend/dashboard/src/app",
+        "@dashboard_deps//@rollup/plugin-node-resolve",
+        "@dashboard_deps//@rollup/plugin-commonjs",
+        "@dashboard_deps//@rollup/plugin-replace",
+    ],
+)
 
 # ts_project(
 #     srcs = glob([
@@ -82,34 +77,35 @@ ts_config(
 #     ],
 # )
 
-webpack(
-    name = "webpack_bundle",
-    outs = ["public/app.bundle.js"],
-    args = [
-        "$(execpath //src/frontend/dashboard/src:index)",
-        "--config",
-        "$(execpath webpack.config.js)",
-        "-o",
-        "$@",
-    ],
-    data = [
-        "webpack.config.js",
-        ":types",
-        "//src/frontend/dashboard/src:index",
-        "//src/frontend/dashboard/src:styles",
-        "@dashboard_deps//:node_modules",
-    ],
-)
+# webpack(
+#     name = "webpack_bundle",
+#     outs = ["public/app.bundle.js"],
+#     args = [
+#         "$(execpath //src/frontend/dashboard/src:index)",
+#         "--config",
+#         "$(execpath webpack.config.js)",
+#         "-o",
+#         "$@",
+#     ],
+#     data = [
+#         "webpack.config.js",
+#         ":types",
+#         "//src/frontend/dashboard/src:index",
+#         "//src/frontend/dashboard/src:styles",
+#         "@dashboard_deps//:node_modules",
+#     ],
+# )
 
 # Note, on Windows you need `--enable_runfiles`
 http_server(
     name = "devserver",
     data = [
-        "public/app.bundle.js",
-        "public/index.html",
+        ":bundle",
+        "bundle.js",
+        "index.html",
     ],
     templated_args = [
-        "./src/frontend/dashboard/public",
+        "./src/frontend/dashboard",
         "-p 8888",
     ],
 )
