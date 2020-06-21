@@ -1,5 +1,6 @@
  
 module.exports = (env, argv) => ({
+  entry: './src/index.js',
   mode: argv.mode,
   module: {
       rules: [

@@ -1,4 +1,5 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
+# load("@dashboard_deps//@bazel/typescript:index.bzl", "ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 
 package(default_visibility = ["//src:__subpackages__"])
@@ -14,7 +15,7 @@ ts_library(
         "index.tsx",
     ]),
     node_modules = "@dashboard_deps//:node_modules",
-    # compiler = "@dashboard_deps//@bazel/typescript/internal/tsc_wrapped:tsc_wrapped --traceResolution",
+    # compiler = "@dashboard_deps//typescript/bin:tsc",
     tsconfig = "//src/frontend/dashboard:tsconfig",
     visibility = ["//src:__subpackages__"],
     deps = [

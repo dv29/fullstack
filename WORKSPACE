@@ -127,6 +127,14 @@ load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
 
 install_bazel_dependencies()
 
+# load("@dashboard_deps//:install_bazel_dependencies.bzl", dashboard_deps_install_bazel_dependencies = "install_bazel_dependencies")
+
+# dashboard_deps_install_bazel_dependencies()
+
+# load("@dashboard_deps_bazel_typescript//:index.bzl", dashboard_deps_ts_setup_workspace = "ts_setup_workspace")
+
+# dashboard_deps_ts_setup_workspace()
+
 load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
 
 ts_setup_workspace()

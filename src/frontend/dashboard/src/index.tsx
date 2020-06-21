@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as styles from "./styles.css";
+// import * as styles from "./styles.css";
 // import { Person } from "../../../protos/person_pb";
 // import { GreeterPromiseClient } from "../../../protos/greeter_service_grpc_web_pb";
 
@@ -15,6 +15,7 @@ import * as styles from "./styles.css";
 // console.log(React);
 
 ReactDOM.render(
-  <h1 className={styles.h1}>Hello, world!!</h1>,
+  // <h1 className={styles.h1}>Hello, world!!</h1>,
+  <h1 >Hello, world!!</h1>,
   document.getElementById("root")
 );
