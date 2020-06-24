@@ -1,0 +1,100 @@
+version: '3'
+services:
+  envoy:
+    build:
+      context: .
+      dockerfile: ./envoy/Dockerfile
+    image: grpcweb/envoy
+    env_file:
+      - dev.env
+    ports:
+      - "8001:8001"
+      - "8501:8501"
+    networks:
+      - fullstack-network
+
+  # bazel:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile-dev
+  #   image: dev/bazel
+  #   entrypoint: /bin/sh
+  #   command: "-c 'sleep infinity'"
+  #   env_file:
+  #     - dev.env
+  #   ports:
+  #     - "6001:6001"
+  #     - "6002:6002"
+  #     - "7001:7001"
+  #   volumes:
+  #     - ~/.cache/bazel-disk-cache:/root/.cache/bazel-disk-cache
+  #     - ../../:/home/workspace
+  #   networks:
+  #     - fullstack-network
+
+  service1:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-dev
+    image: dev/service1
+    entrypoint: ibazel 
+    command: "run //src/backend/service1"
+    env_file:
+      - dev.env
+    ports:
+      - "6001:6001"
+    volumes:
+      - ~/.cache/bazel-disk-cache:/root/.cache/bazel-disk-cache
+      - ../../bazel-out:/home/workspace/bazel-out
+      - ../../dist:/home/workspace/dist
+      - ../../:/home/workspace
+    networks:
+      - fullstack-network
+
+  service2:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-dev
+    image: dev/service2
+    entrypoint: ibazel 
+    command: "run //src/backend/service2"
+    depends_on:
+      - service1
+    env_file:
+      - dev.env
+    ports:
+      - "6002:6002"
+    volumes:
+      - ~/.cache/bazel-disk-cache:/root/.cache/bazel-disk-cache
+      - ./home/workspace/src/backend/service2/node_modules
+      - ../../bazel-out:/home/workspace/bazel-out
+      - ../../dist:/home/workspace/dist
+      - ../../:/home/workspace
+    networks:
+      - fullstack-network
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-dev
+    image: dev/dashboard
+    entrypoint: ibazel
+    command: "run //src/frontend/dashboard:devserver"
+    depends_on:
+      - service1
+    env_file:
+      - dev.env
+    ports:
+      - "7001:7001"
+    volumes:
+      - ~/.cache/bazel-disk-cache:/root/.cache/bazel-disk-cache
+      - ./home/workspace/src/frontend/dashboard/node_modules
+      - ../../bazel-out:/home/workspace/bazel-out
+      - ../../dist:/home/workspace/dist
+      - ../../:/home/workspace
+    networks:
+      - fullstack-network
+
+networks:
+  fullstack-network:
+    driver: bridge

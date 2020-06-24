@@ -66,6 +66,7 @@ load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_
 rules_proto_dependencies()
 
 rules_proto_toolchains()
+
 # End  // Protobuf
 
 # GRPC
@@ -126,7 +127,40 @@ load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
 
 install_bazel_dependencies()
 
+# load("@dashboard_deps//:install_bazel_dependencies.bzl", dashboard_deps_install_bazel_dependencies = "install_bazel_dependencies")
+
+# dashboard_deps_install_bazel_dependencies()
+
+# load("@dashboard_deps_bazel_typescript//:index.bzl", dashboard_deps_ts_setup_workspace = "ts_setup_workspace")
+
+# dashboard_deps_ts_setup_workspace()
+
 load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
 
 ts_setup_workspace()
+
+load("@npm_bazel_labs//:package.bzl", "npm_bazel_labs_dependencies")
+
+npm_bazel_labs_dependencies()
 # End  // Javascript
+
+# SASS
+http_archive(
+    name = "io_bazel_rules_sass",
+    sha256 = "9dcfba04e4af896626f4760d866f895ea4291bc30bf7287887cefcf4707b6a62",
+    strip_prefix = "rules_sass-1.26.3",
+    # Make sure to check for the latest version when you install
+    url = "https://github.com/bazelbuild/rules_sass/archive/1.26.3.zip",
+)
+
+# Fetch required transitive dependencies. This is an optional step because you
+# can always fetch the required NodeJS transitive dependency on your own.
+load("@io_bazel_rules_sass//:package.bzl", "rules_sass_dependencies")
+
+rules_sass_dependencies()
+
+# Setup repositories which are needed for the Sass rules.
+load("@io_bazel_rules_sass//:defs.bzl", "sass_repositories")
+
+sass_repositories()
+# End  // SASS

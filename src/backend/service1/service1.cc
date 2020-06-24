@@ -18,6 +18,11 @@ using grpc::ServerContext;
 using grpc::Status;
 using greeterservice::Greeter;
 
+std::string getEnvVar(std::string const & key) {
+  char * val = getenv( key.c_str() );
+  return val == NULL ? std::string("") : std::string(val);
+}
+
 // Logic and data behind the server's behavior.
 class GreeterServiceImpl final : public Greeter::Service {
   Status SayHello(ServerContext* context, const greeterservice::Person* request, greeterservice::Greetings* reply) override {
@@ -28,17 +33,20 @@ class GreeterServiceImpl final : public Greeter::Service {
 };
 
 void RunServer() {
-  std::string server_address("0.0.0.0:50051");
+  std::string server_address("0.0.0.0:" + getEnvVar("SERVICE_1_PORT"));
   GreeterServiceImpl service;
 
   grpc::EnableDefaultHealthCheckService(true);
   grpc::reflection::InitProtoReflectionServerBuilderPlugin();
   ServerBuilder builder;
+
   // Listen on the given address without any authentication mechanism.
   builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+
   // Register "service" as the instance through which we'll communicate with
   // clients. In this case it corresponds to an *synchronous* service.
   builder.RegisterService(&service);
+
   // Finally assemble the server.
   std::unique_ptr<Server> server(builder.BuildAndStart());
   std::cout << "Server listening on " << server_address << std::endl;

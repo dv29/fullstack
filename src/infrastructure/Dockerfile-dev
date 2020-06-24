@@ -1,0 +1,41 @@
+FROM l.gcr.io/google/bazel:latest
+
+RUN apt install -y build-essential
+
+# ibazel
+RUN cd home \
+  && git clone https://github.com/bazelbuild/bazel-watcher.git \
+  && cd bazel-watcher \
+  && bazel build //ibazel \
+  && mv /home/bazel-watcher/bazel-bin/ibazel/linux_amd64_pure_stripped/ibazel /usr/local/bin/ibazel \
+  && rm -rf /home/bazel-watcher
+# END  // ibazel
+
+# nodejs
+RUN cd home \
+  && VERSION=v12.18.1 \
+  && DISTRO=linux-x64 \
+  && mkdir -p /usr/local/lib/nodejs \
+  && curl -sL https://nodejs.org/dist/v12.18.1/node-$VERSION-$DISTRO.tar.xz -o node-$VERSION-$DISTRO.tar.xz \
+  && tar -xJvf node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs --strip-components=1 \
+  && rm -rf node-$VERSION-$DISTRO.tar.xz
+
+ENV PATH="/usr/local/lib/nodejs/bin:${PATH}"
+# END  // nodejs
+
+# golang
+RUN cd home \
+  && VERSION=1.14.4 \
+  && DISTRO=linux-amd64 \
+  && curl -sL https://dl.google.com/go/go$VERSION.$DISTRO.tar.gz -o go$VERSION.$DISTRO.tar.gz \
+  && tar -C /usr/local/lib -xzf go$VERSION.$DISTRO.tar.gz  \
+  && rm -rf go$VERSION.$DISTRO.tar.gz
+
+ENV PATH="/usr/local/lib/go/bin:${PATH}"
+# END  // golang
+
+RUN apt autoremove
+
+WORKDIR /home/workspace
+
+EXPOSE 6000-8000
