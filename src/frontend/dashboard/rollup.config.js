@@ -8,6 +8,7 @@ module.exports = {
     commonjs(),
     replace({
       'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.ENVOY_GRPC_PORT': process.env.ENVOY_GRPC_PORT,
     }),
   ],
 };

@@ -1,6 +1,10 @@
 FROM envoyproxy/envoy:v1.14.1
 
-COPY ./envoy/envoy.yaml /etc/envoy/envoy.yaml
+RUN apt update && apt install -y gettext
 
-# CMD /usr/local/bin/envoy -c /etc/envoy/envoy.yaml -l trace --log-path /tmp/envoy_info.log
-CMD /usr/local/bin/envoy -c /etc/envoy/envoy.yaml
+COPY ./envoy/envoy.yaml.tmpl /etc/envoy/envoy.yaml.tmpl
+COPY ./envoy/docker-entrypoint.sh /
+
+RUN chmod 500 /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]

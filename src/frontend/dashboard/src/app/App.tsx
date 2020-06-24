@@ -4,7 +4,7 @@ import { Person } from 'fullstack/src/protos/person_pb';
 import { GreeterPromiseClient } from 'fullstack/src/protos/greeter_service_grpc_web_pb';
 import { Greetings } from 'fullstack/src/protos/greeter_service_pb';
 
-const greeterClient = new GreeterPromiseClient('http://localhost:8080', null, null);
+const greeterClient = new GreeterPromiseClient('http://localhost:8001', null, null);
 const person = new Person();
 person.setName('world');
 person.setId(24123);
@@ -21,7 +21,6 @@ function App() {
   return (
     <div>
       <header>
-        Hello,
         {text}
       </header>
     </div>

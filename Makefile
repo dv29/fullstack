@@ -50,3 +50,12 @@ protos-m:
 	mv $(PROTO_OUT_DIR)/src/protos/* $(PROTO_OUT_DIR)
 	rm -rf $(PROTO_OUT_DIR)/src
 
+docker-dev-build:
+	docker-compose -f ./src/infrastructure/docker-compose-dev.yaml build
+
+start-dev: docker-dev-build
+	docker-compose -f ./src/infrastructure/docker-compose-dev.yaml up
+	# docker-compose -f ./docker-compose-dev.yaml exec bazel sh
+
+stop-dev:
+	docker-compose -f ./src/infrastructure/docker-compose-dev.yaml down

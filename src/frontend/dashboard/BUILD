@@ -54,8 +54,8 @@ rollup_bundle(
     deps = [
         "//src/frontend/dashboard/src:index",
         "//src/frontend/dashboard/src/app",
-        "@dashboard_deps//@rollup/plugin-node-resolve",
         "@dashboard_deps//@rollup/plugin-commonjs",
+        "@dashboard_deps//@rollup/plugin-node-resolve",
         "@dashboard_deps//@rollup/plugin-replace",
     ],
 )
@@ -100,12 +100,12 @@ rollup_bundle(
 http_server(
     name = "devserver",
     data = [
-        ":bundle",
         "bundle.js",
         "index.html",
+        ":bundle",
     ],
     templated_args = [
         "./src/frontend/dashboard",
-        "-p 8888",
+        "-p $DASHBOARD_PORT",
     ],
 )
