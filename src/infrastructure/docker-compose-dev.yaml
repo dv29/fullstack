@@ -32,13 +32,18 @@ services:
   #   networks:
   #     - fullstack-network
 
-  service1:
+  ibazel:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    image: dev/service1
-    entrypoint: ibazel 
+    image: dev/ibazel
+    command: "version"
+ 
+  service1:
+    image: dev/ibazel
     command: "run //src/backend/service1"
+    depends_on:
+      - ibazel
     env_file:
       - dev.env
     ports:
@@ -55,11 +60,11 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    image: dev/service2
-    entrypoint: ibazel 
+    image: dev/ibazel
     command: "run //src/backend/service2"
     depends_on:
       - service1
+      - ibazel
     env_file:
       - dev.env
     ports:
@@ -74,14 +79,11 @@ services:
       - fullstack-network
 
   dashboard:
-    build:
-      context: .
-      dockerfile: ./Dockerfile-dev
-    image: dev/dashboard
-    entrypoint: ibazel
+    image: dev/ibazel
     command: "run //src/frontend/dashboard:devserver"
     depends_on:
       - service1
+      - ibazel
     env_file:
       - dev.env
     ports:

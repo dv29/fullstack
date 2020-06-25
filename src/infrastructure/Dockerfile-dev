@@ -39,3 +39,5 @@ RUN apt autoremove
 WORKDIR /home/workspace
 
 EXPOSE 6000-8000
+
+ENTRYPOINT ["ibazel"]
