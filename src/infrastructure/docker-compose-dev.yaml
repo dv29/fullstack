@@ -17,7 +17,11 @@ services:
   #   build:
   #     context: .
   #     dockerfile: ./Dockerfile-dev
+  #     args:
+  #       - USER_ID=${USER_ID}
+  #       - GROUP_ID=${GROUP_ID}
   #   image: dev/bazel
+  #   user: "${USER_ID}:${GROUP_ID}"
   #   entrypoint: /bin/sh
   #   command: "-c 'sleep infinity'"
   #   env_file:
@@ -36,8 +40,11 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
+      args:
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
     image: dev/ibazel
-    command: "version"
+    command: "build //..."
  
   service1:
     image: dev/ibazel
@@ -50,16 +57,11 @@ services:
       - "6001:6001"
     volumes:
       - ~/.cache/bazel-disk-cache:/root/.cache/bazel-disk-cache
-      - ../../bazel-out:/home/workspace/bazel-out
-      - ../../dist:/home/workspace/dist
       - ../../:/home/workspace
     networks:
       - fullstack-network
 
   service2:
-    build:
-      context: .
-      dockerfile: ./Dockerfile-dev
     image: dev/ibazel
     command: "run //src/backend/service2"
     depends_on:
@@ -71,9 +73,6 @@ services:
       - "6002:6002"
     volumes:
       - ~/.cache/bazel-disk-cache:/root/.cache/bazel-disk-cache
-      - ./home/workspace/src/backend/service2/node_modules
-      - ../../bazel-out:/home/workspace/bazel-out
-      - ../../dist:/home/workspace/dist
       - ../../:/home/workspace
     networks:
       - fullstack-network
@@ -90,9 +89,6 @@ services:
       - "7001:7001"
     volumes:
       - ~/.cache/bazel-disk-cache:/root/.cache/bazel-disk-cache
-      - ./home/workspace/src/frontend/dashboard/node_modules
-      - ../../bazel-out:/home/workspace/bazel-out
-      - ../../dist:/home/workspace/dist
       - ../../:/home/workspace
     networks:
       - fullstack-network

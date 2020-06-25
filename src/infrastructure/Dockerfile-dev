@@ -36,8 +36,16 @@ ENV PATH="/usr/local/lib/go/bin:${PATH}"
 
 RUN apt autoremove
 
+ARG USER_ID
+ARG GROUP_ID
+
+RUN addgroup --gid $GROUP_ID user
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+
+USER user
+
 WORKDIR /home/workspace
 
-EXPOSE 6000-8000
+RUN bazel
 
 ENTRYPOINT ["ibazel"]

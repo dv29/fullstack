@@ -50,12 +50,23 @@ protos-m:
 	mv $(PROTO_OUT_DIR)/src/protos/* $(PROTO_OUT_DIR)
 	rm -rf $(PROTO_OUT_DIR)/src
 
+USER_ID = "$(shell id -u)"
+GROUP_ID = "$(shell id -g)"
+
+ifeq (exec-dev,$(firstword $(MAKECMDGOALS)))
+  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  $(eval $(RUN_ARGS):;@:)
+endif
+
 docker-dev-build:
-	docker-compose -f ./src/infrastructure/docker-compose-dev.yaml build
+	USER_ID=$(USER_ID) GROUP_ID=$(GROUP_ID) docker-compose -f ./src/infrastructure/docker-compose-dev.yaml build
 
 start-dev: docker-dev-build
-	docker-compose -f ./src/infrastructure/docker-compose-dev.yaml up
+	USER_ID=$(USER_ID) GROUP_ID=$(GROUP_ID) docker-compose -f ./src/infrastructure/docker-compose-dev.yaml up
 	# docker-compose -f ./docker-compose-dev.yaml exec bazel sh
 
 stop-dev:
 	docker-compose -f ./src/infrastructure/docker-compose-dev.yaml down
+
+exec-dev:
+	USER_ID=$(USER_ID) GROUP_ID=$(GROUP_ID) docker-compose -f ./src/infrastructure/docker-compose-dev.yaml exec $(RUN_ARGS)
